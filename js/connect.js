@@ -8,7 +8,8 @@ const createGame=async player=>{
         body:JSON.stringify(data)
     }
     try{
-        let repsData = await fetch(`http://localhost:3000/createGame`,options);
+//        let repsData = await fetch(`http://localhost:3000/createGame`,options);
+        let repsData = await fetch(`https://connect4-u9ff.onrender.com/createGame`,options);
         if(repsData.status==201){
             repsData = await repsData.json();
             return repsData;
@@ -18,7 +19,8 @@ const createGame=async player=>{
 }
 
 const fetchGames=async ()=>{
-    let repsData = await fetch(`http://localhost:3000/gamesList`);
+//    let repsData = await fetch(`http://localhost:3000/gamesList`);
+    let repsData = await fetch(`https://connect4-u9ff.onrender.com/gamesList`);
     repsData = await repsData.json();
     return repsData;
 }
@@ -31,12 +33,14 @@ const joinGame=async id=>{
         },
         body:JSON.stringify({id:id})
     }
-    let repsData = await fetch(`http://localhost:3000/joingame`,options);
+//    let repsData = await fetch(`http://localhost:3000/joingame`,options);
+    let repsData = await fetch(`https://connect4-u9ff.onrender.com/joingame`,options);
     return (repsData.status==200)?true:false;
 }
 
 const getMessage=async(name,id)=>{
-    let repsData = await fetch(`http://localhost:3000/message?name=${name}&id=${id}`);
+//    let repsData = await fetch(`http://localhost:3000/message?name=${name}&id=${id}`);
+    let repsData = await fetch(`https://connect4-u9ff.onrender.com/message?name=${name}&id=${id}`);
     repsData = await repsData.json();
     return repsData;
 }
@@ -50,7 +54,8 @@ const sendMessage=async(name,id,message)=>{
         },
         body:JSON.stringify(data)
     }
-    let repsData = await fetch(`http://localhost:3000/postMessage`,options);
+//    let repsData = await fetch(`http://localhost:3000/postMessage`,options);
+    let repsData = await fetch(`https://connect4-u9ff.onrender.com/postMessage`,options);
     if(repsData.status==200){
         return true;
     }
