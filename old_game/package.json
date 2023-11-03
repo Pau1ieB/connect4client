@@ -1,12 +1,11 @@
 {
-  "name": "connect4client-v2",
+  "name": "hackathon",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node js/index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {

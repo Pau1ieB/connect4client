@@ -3,7 +3,7 @@ class Player{
         this.name=name;
         this.score=0;
         this.host=true;
-        this.nextMove=true;
+        this.nextMove=false;
     }
 
     getName(){return this.name;}

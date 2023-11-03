@@ -1,65 +1,32 @@
-const createGame=async player=>{
-    const data = {name:player.getName()};
-    const options = {
-        method:"POST",
+//const urlHost = 'http://localhost:3000/';
+const urlHost = 'https://connect4-u9ff.onrender.com/';
+
+
+const CreateOptions=(method,data)=>{
+    return{
+        method:method,
         headers:{
             "Content-Type":"application/json",
         },
         body:JSON.stringify(data)
     }
-    try{
-//        let repsData = await fetch(`http://localhost:3000/createGame`,options);
-        let repsData = await fetch(`https://connect4-u9ff.onrender.com/createGame`,options);
-        if(repsData.status==201){
-            repsData = await repsData.json();
-            return repsData;
-        }
-        return false;
-    }catch(err){console.log(err)}
 }
 
-const fetchGames=async ()=>{
-//    let repsData = await fetch(`http://localhost:3000/gamesList`);
-    let repsData = await fetch(`https://connect4-u9ff.onrender.com/gamesList`);
-    repsData = await repsData.json();
-    return repsData;
+const get= async (url)=>{
+    let response = await fetch(urlHost+url);
+    return (response.status!=200)?false:await response.json();
 }
 
-const joinGame=async id=>{
-    const options = {
-        method:"PUT",
-        headers:{
-            "Content-Type":"application/json",
-        },
-        body:JSON.stringify({id:id})
-    }
-//    let repsData = await fetch(`http://localhost:3000/joingame`,options);
-    let repsData = await fetch(`https://connect4-u9ff.onrender.com/joingame`,options);
-    return (repsData.status==200)?true:false;
+const post = async (url,data)=>{
+    const options = CreateOptions('POST',data);
+    let response = await fetch(urlHost+url,options);
+    return (response.status!=201)?false:await response.json();
 }
 
-const getMessage=async(name,id)=>{
-//    let repsData = await fetch(`http://localhost:3000/message?name=${name}&id=${id}`);
-    let repsData = await fetch(`https://connect4-u9ff.onrender.com/message?name=${name}&id=${id}`);
-    repsData = await repsData.json();
-    return repsData;
+const put = async (url,data)=>{
+    const options = CreateOptions('PUT',data);
+    let response = await fetch(urlHost+url,options);
+    return (response.status!=200)?false:await response.json();
 }
 
-const sendMessage=async(name,id,message)=>{
-    const data = {name:name,id:id,message:message};
-    const options = {
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-        },
-        body:JSON.stringify(data)
-    }
-//    let repsData = await fetch(`http://localhost:3000/postMessage`,options);
-    let repsData = await fetch(`https://connect4-u9ff.onrender.com/postMessage`,options);
-    if(repsData.status==200){
-        return true;
-    }
-    return false; 
-}
-
-module.exports={createGame,getMessage,fetchGames,joinGame,sendMessage}
+module.exports={post,get,put}
