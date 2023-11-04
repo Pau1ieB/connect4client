@@ -183,6 +183,7 @@ const run = async ()=>{
                 if(currentPlayer.getNextMove()){
                     let playerMove = prompt(c.green("Your move: pick a column from 0 - 6 to add a counter (or x to exit): "));
                     if(playerMove==="x"){
+                        const response = await sendMessage(`x-x-x`);
                         isRunning=false;
                         gameType='';
                     }
@@ -220,18 +221,24 @@ const run = async ()=>{
                     console.log(c.red("Waiting for opposition move..."));
                     const response = await CheckForMessage();
                     const move = response[0].message.split('-');
-                    movesRemaining--;
-                    gameGrid[parseInt(move[2])][parseInt(move[1])]=c.red('[0]');
-                    showCurrentBoard();
-                    if(move[0]==='2'){
-                        YouLose();
+                    if(move[0]==='x'){
+                        console.log(c.red('The opposition player has left the game!'));
                         isRunning=false;
                     }
-                    else if(move[0]==='1'){
-                        ItsADraw();
-                        isRunning=false;
-                    }
-                    else currentPlayer.setNextMove(true);
+                    else{
+                        movesRemaining--;
+                        gameGrid[parseInt(move[2])][parseInt(move[1])]=c.red('[0]');
+                        showCurrentBoard();
+                        if(move[0]==='2'){
+                            YouLose();
+                            isRunning=false;
+                        }
+                        else if(move[0]==='1'){
+                            ItsADraw();
+                            isRunning=false;
+                        }
+                        else currentPlayer.setNextMove(true);
+                    }    
                 }
                 if(!isRunning){
                     prompt(c.green("Press any key to continue...."));
